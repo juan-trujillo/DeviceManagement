@@ -1,0 +1,667 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Oauth - Graph",
+    "description": "Connector for Microsoft Graph Device Management endpoint."
+  },
+  "host": "graph.microsoft.com",
+  "basePath": "/",
+  "schemes": [
+    "https"
+  ],
+  "consumes": [],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/%7B%7BTenantId%7D%7D/oauth2/v2.0/token": {},
+    "/beta/devices/": {
+      "get": {
+        "summary": "Get Device",
+        "description": "Get Device",
+        "operationId": "GetDevice",
+        "parameters": [
+          {
+            "name": "$select",
+            "default": "id,displayName,deviceId,operatingSystem,enrollmentProfileName",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "$filter",
+            "default": "id eq '{deviceId}'",
+            "in": "query",
+            "type": "string",
+            "required": true
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json; utf-8",
+            "description": "Content-Type"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "error": {
+                  "type": "object",
+                  "properties": {
+                    "code": {
+                      "type": "string",
+                      "description": "code"
+                    },
+                    "message": {
+                      "type": "object",
+                      "properties": {
+                        "_version": {
+                          "type": "integer",
+                          "format": "int32",
+                          "description": "_version"
+                        },
+                        "Message": {
+                          "type": "string",
+                          "description": "Message"
+                        },
+                        "CustomApiErrorPhrase": {
+                          "type": "string",
+                          "description": "CustomApiErrorPhrase"
+                        },
+                        "RetryAfter": {
+                          "type": "string",
+                          "description": "RetryAfter"
+                        },
+                        "ErrorSourceService": {
+                          "type": "string",
+                          "description": "ErrorSourceService"
+                        },
+                        "HttpHeaders": {
+                          "type": "object",
+                          "properties": {},
+                          "description": "HttpHeaders"
+                        }
+                      },
+                      "description": "message"
+                    },
+                    "innerError": {
+                      "type": "object",
+                      "properties": {
+                        "date": {
+                          "type": "string",
+                          "description": "date"
+                        },
+                        "request-id": {
+                          "type": "string",
+                          "description": "request-id"
+                        },
+                        "client-request-id": {
+                          "type": "string",
+                          "description": "client-request-id"
+                        }
+                      },
+                      "description": "innerError"
+                    }
+                  },
+                  "description": "error"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/beta/deviceManagement/managedDevices/%7B%7BdeviceId%7D%7D": {},
+    "/beta/deviceManagement/managedDevices": {
+      "get": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "@odata.context": {
+                  "type": "string",
+                  "description": "@odata.context"
+                },
+                "@odata.count": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "@odata.count"
+                },
+                "value": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "id"
+                      },
+                      "deviceName": {
+                        "type": "string",
+                        "description": "deviceName"
+                      },
+                      "serialNumber": {
+                        "type": "string",
+                        "description": "serialNumber"
+                      },
+                      "operatingSystem": {
+                        "type": "string",
+                        "description": "operatingSystem"
+                      },
+                      "model": {
+                        "type": "string",
+                        "description": "model"
+                      },
+                      "enrollmentProfileName": {
+                        "type": "string",
+                        "description": "enrollmentProfileName"
+                      },
+                      "azureADDeviceId": {
+                        "type": "string",
+                        "description": "azureADDeviceId"
+                      }
+                    }
+                  },
+                  "description": "value"
+                }
+              }
+            },
+            "headers": {
+              "Content-Type": {
+                "description": "Content-Type",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "summary": "Get Managed Device",
+        "description": "Get Managed Device",
+        "operationId": "GetManagedDevice",
+        "parameters": [
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "serialNumber eq '{serialNumber}'"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "id,deviceName,serialNumber,operatingSystem,model,enrollmentProfileName,azureADDeviceId"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          }
+        ]
+      }
+    },
+    "/beta/deviceManagement/depOnboardingSettings(%7B%7Bid%7D%7D)/enrollmentProfiles/": {},
+    "/v1.0/devices": {
+      "get": {
+        "summary": "Entra - Get Managed Device",
+        "description": "Entra - Get Managed Device",
+        "operationId": "Entra-GetManagedDevice",
+        "parameters": [
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "id,deviceId,displayName,extensionAttributes"
+          },
+          {
+            "name": "$filter",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/beta/devices/302f5135-724f-47cd-8f72-9a22145ee59e": {},
+    "/beta/devices/{deviceId}": {
+      "patch": {
+        "summary": "Entra - Update Managed Device",
+        "description": "Entra - Update Managed Device",
+        "operationId": "Entra-UpdateManagedDevice",
+        "parameters": [
+          {
+            "name": "deviceId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": false,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "extensionAttributes": {
+                  "type": "object",
+                  "properties": {
+                    "extensionAttribute1": {
+                      "type": "string",
+                      "description": "extensionAttribute1"
+                    },
+                    "extensionAttribute2": {
+                      "type": "string",
+                      "description": "extensionAttribute2"
+                    },
+                    "extensionAttribute3": {
+                      "type": "string",
+                      "description": "extensionAttribute3"
+                    }
+                  },
+                  "description": "extensionAttributes"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/beta/deviceManagement/depOnboardingSettings({id})/enrollmentProfiles/": {},
+    "/beta/deviceManagement/managedDevices/{deviceId}": {},
+    "/beta/deviceManagement/managedDevices/{id}": {
+      "get": {
+        "summary": "Get Managed Device by Id",
+        "description": "Get Managed Device by Id",
+        "operationId": "GetManagedDevicebyId",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "default": "id,deviceName,azureADDeviceId"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/beta/deviceManagement/depOnboardingSettings/{id}/enrollmentProfiles/": {
+      "get": {
+        "summary": "Get Enrollment Profiles",
+        "description": "Get a list of Enrollment Profiles",
+        "operationId": "EnrollmentProfiles",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "$top",
+            "in": "query",
+            "required": false,
+            "type": "integer"
+          },
+          {
+            "name": "$select",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        }
+      }
+    },
+    "/beta/deviceManagement/managedDevices/{id}/wipe": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {}
+          }
+        },
+        "summary": "Wipe Device by Id",
+        "description": "Wipe Devices by Id",
+        "operationId": "WipeDeviceById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          }
+        ]
+      }
+    },
+    "/beta/deviceManagement/depOnboardingSettings/{tokenId}/enrollmentProfiles('{enrollmentProfileId}')/updateDeviceProfileAssignment": {
+      "post": {
+        "responses": {
+          "default": {
+            "description": "default",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "statusCode": {
+                  "type": "integer",
+                  "format": "int32",
+                  "description": "statusCode"
+                },
+                "headers": {
+                  "type": "object",
+                  "properties": {
+                    "Transfer-Encoding": {
+                      "type": "string",
+                      "description": "Transfer-Encoding"
+                    },
+                    "Vary": {
+                      "type": "string",
+                      "description": "Vary"
+                    },
+                    "Strict-Transport-Security": {
+                      "type": "string",
+                      "description": "Strict-Transport-Security"
+                    },
+                    "request-id": {
+                      "type": "string",
+                      "description": "request-id"
+                    },
+                    "client-request-id": {
+                      "type": "string",
+                      "description": "client-request-id"
+                    },
+                    "x-ms-ags-diagnostic": {
+                      "type": "object",
+                      "properties": {
+                        "ServerInfo": {
+                          "type": "object",
+                          "properties": {
+                            "DataCenter": {
+                              "type": "string",
+                              "description": "DataCenter"
+                            },
+                            "Slice": {
+                              "type": "string",
+                              "description": "Slice"
+                            },
+                            "Ring": {
+                              "type": "string",
+                              "description": "Ring"
+                            },
+                            "ScaleUnit": {
+                              "type": "string",
+                              "description": "ScaleUnit"
+                            },
+                            "RoleInstance": {
+                              "type": "string",
+                              "description": "RoleInstance"
+                            }
+                          },
+                          "description": "ServerInfo"
+                        }
+                      },
+                      "description": "x-ms-ags-diagnostic"
+                    },
+                    "x-ms-apihub-cached-response": {
+                      "type": "string",
+                      "description": "x-ms-apihub-cached-response"
+                    },
+                    "x-ms-apihub-obo": {
+                      "type": "string",
+                      "description": "x-ms-apihub-obo"
+                    },
+                    "Date": {
+                      "type": "string",
+                      "description": "Date"
+                    },
+                    "Content-Type": {
+                      "type": "string",
+                      "description": "Content-Type"
+                    }
+                  },
+                  "description": "headers"
+                },
+                "body": {
+                  "type": "object",
+                  "properties": {
+                    "error": {
+                      "type": "object",
+                      "properties": {
+                        "code": {
+                          "type": "string",
+                          "description": "code"
+                        },
+                        "message": {
+                          "type": "object",
+                          "properties": {
+                            "_version": {
+                              "type": "integer",
+                              "format": "int32",
+                              "description": "_version"
+                            },
+                            "Message": {
+                              "type": "string",
+                              "description": "Message"
+                            },
+                            "CustomApiErrorPhrase": {
+                              "type": "string",
+                              "description": "CustomApiErrorPhrase"
+                            },
+                            "RetryAfter": {
+                              "type": "string",
+                              "description": "RetryAfter"
+                            },
+                            "ErrorSourceService": {
+                              "type": "string",
+                              "description": "ErrorSourceService"
+                            },
+                            "HttpHeaders": {
+                              "type": "object",
+                              "properties": {},
+                              "description": "HttpHeaders"
+                            }
+                          },
+                          "description": "message"
+                        },
+                        "innerError": {
+                          "type": "object",
+                          "properties": {
+                            "date": {
+                              "type": "string",
+                              "description": "date"
+                            },
+                            "request-id": {
+                              "type": "string",
+                              "description": "request-id"
+                            },
+                            "client-request-id": {
+                              "type": "string",
+                              "description": "client-request-id"
+                            }
+                          },
+                          "description": "innerError"
+                        }
+                      },
+                      "description": "error"
+                    }
+                  },
+                  "description": "body"
+                }
+              }
+            },
+            "headers": {
+              "Strict-Transport-Security": {
+                "description": "Strict-Transport-Security",
+                "type": "string"
+              },
+              "request-id": {
+                "description": "request-id",
+                "type": "string"
+              },
+              "client-request-id": {
+                "description": "client-request-id",
+                "type": "string"
+              },
+              "x-ms-ags-diagnostic": {
+                "description": "x-ms-ags-diagnostic",
+                "type": "string"
+              },
+              "Date": {
+                "description": "Date",
+                "type": "string"
+              },
+              "Content-Length": {
+                "description": "Content-Length",
+                "type": "integer"
+              }
+            }
+          }
+        },
+        "summary": "Update Enrollment Profiles",
+        "description": "Update Enrollment Profile for one or multiple devices by Serial Number",
+        "operationId": "UpdateEnrollmentProfiles",
+        "parameters": [
+          {
+            "name": "tokenId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "enrollmentProfileId",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "Content-Type",
+            "in": "header",
+            "required": true,
+            "type": "string",
+            "default": "application/json"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "deviceIds": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "title": ""
+                  },
+                  "description": "deviceIds"
+                }
+              },
+              "required": [
+                "deviceIds"
+              ]
+            }
+          }
+        ]
+      }
+    },
+    "/beta/devicesTest": {}
+  },
+  "definitions": {},
+  "parameters": {},
+  "responses": {},
+  "securityDefinitions": {
+    "oauth2-auth": {
+      "type": "oauth2",
+      "flow": "accessCode",
+      "authorizationUrl": "https://login.microsoftonline.com/common/oauth2/authorize",
+      "tokenUrl": "https://login.windows.net/common/oauth2/authorize",
+      "scopes": {}
+    },
+    "oAuthClientCredentials": {
+      "type": "oauth2",
+      "flow": "application",
+      "tokenUrl": "https://login.windows.net/common/oauth2/authorize",
+      "scopes": {}
+    }
+  },
+  "security": [
+    {
+      "oauth2-auth": []
+    }
+  ],
+  "tags": []
+}
